@@ -17,9 +17,21 @@ class Game
         end
       end
     end
-    if !occupied
-      @ships << ship
+    @ships << ship if !occupied && !off_board(ship)
+  end
+
+  private
+
+  def off_board(ship)
+    off = false
+    ship.location.each do |point|
+      point.each do |number|
+        if number < 0
+          off = true
+        end
+      end
     end
+    off
   end
 
 end

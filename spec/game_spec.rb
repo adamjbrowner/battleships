@@ -19,8 +19,11 @@ describe Game do
       ship = Ship.new(:submarine, [1, 1], :right)
       ship2 = Ship.new(:submarine, [2, 3], :down)
       @game.place(ship)
-      @game.place(ship2)
-      expect(@game.ships.length).to eq(1)
+      expect{@game.place(ship2)}.not_to change{@game.ships.length}
+    end
+    it "Can't place ships beyond the confines of the board" do
+      ship = Ship.new(:battleship, [1, 1], :left)
+      expect{@game.place(ship)}.not_to change{@game.ships.length}
     end
   end
 end
