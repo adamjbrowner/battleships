@@ -7,6 +7,21 @@ class Game
   end
 
   def place(ship)
+    @ships << ship if !occupied(ship) && !off_board(ship)
+
+  end
+
+  def fire(target)
+    hit = false
+    @ships.each do |ship|
+      hit = true if ship.location.include? target
+    end
+    hit
+  end
+
+  private
+
+  def occupied(ship)
     occupied = false
     ship.location.each do |single_point|
       @ships.each do |placed_ship|
@@ -17,16 +32,14 @@ class Game
         end
       end
     end
-    @ships << ship if !occupied && !off_board(ship)
+    occupied
   end
-
-  private
 
   def off_board(ship)
     off = false
     ship.location.each do |point|
       point.each do |number|
-        if number < 0
+        if (number < 0) || (number > 10)
           off = true
         end
       end
