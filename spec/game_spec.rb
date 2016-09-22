@@ -8,4 +8,12 @@ describe Game do
       expect(@game.ships).to eq([])
     end
   end
+
+  describe "#place" do
+    it "Places a ship onto the board" do
+      ship = double(:ship)
+      @game.place(ship)
+      expect(@game.ships[0]).to eq(ship)
+    end
+  end
 end

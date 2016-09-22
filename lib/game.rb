@@ -6,8 +6,8 @@ class Game
     @ships = []
   end
 
-  def place(a, b, x, y)
-    @ships << Ship.new(a, b, x, y)
+  def place(ship)
+    @ships << (ship)
   end
 
 end
