@@ -2,9 +2,9 @@ class Ship
 
   attr_reader :location, :type
 
-  def initialize(type, front, direction)
+  def initialize(type, back, direction)
     length = length_size(type)
-    coordinates = direction_coordinates(front, direction, length)
+    coordinates = area(back, direction, length)
     @location = coordinates
     @type = type
   end
@@ -26,24 +26,71 @@ class Ship
     end
   end
 
-  def direction_coordinates(front, direction, length)
-    a = front[0]
-    b = front[1]
-    case direction
-    when :up
-      y = b + (length - 1)
-      x = a
-    when :down
-      y = b - (length - 1)
-      x = a
-    when :right
-      x = a + (length - 1)
-      y = b
-    when :left
-      x = a - (length - 1)
-      y = b
+  def area(back, direction, length)
+    a = back[0]
+    b = back[1]
+    length_countdown = length - 1
+    while length_countdown > 0
+      if direction == :up
+        c = a
+        d = b + 1
+        length_countdown -= 1
+        e = a
+        f = b + 2
+        length_countdown -= 1
+        g = a
+        h = b + 3
+        length_countdown -= 1
+        i = a
+        j = b + 4
+      elsif direction == :down
+        c = a
+        d = b - 1
+        length_countdown -= 1
+        e = a
+        f = b - 2
+        length_countdown -= 1
+        g = a
+        h = b - 3
+        length_countdown -= 1
+        i = a
+        j = b - 4
+      elsif direction == :left
+        c = a - 1
+        d = b
+        length_countdown -= 1
+        e = a - 2
+        f = b
+        length_countdown -= 1
+        g = a - 3
+        h = b
+        length_countdown -= 1
+        i = a - 4
+        j = b
+      elsif direction == :right
+        c = a + 1
+        d = b
+        length_countdown -= 1
+        e = a + 2
+        f = b
+        length_countdown -= 1
+        g = a + 3
+        h = b
+        length_countdown -= 1
+        i = a + 4
+        j = b
+      end
     end
-    # 1 needs to be deducted from length to take into account that the front of the ship is included in it's length
-    [[a, b], [x, y]]
+
+    case length
+    when 2
+      return [[a, b], [c, d]]
+    when 3
+      return [[a, b], [c, d], [e, f]]
+    when 4
+      return [[a, b], [c, d], [e, f], [g, h]]
+    when 5
+      return [[a, b], [c, d], [e, f], [g, h], [i, j]]
+    end
   end
 end

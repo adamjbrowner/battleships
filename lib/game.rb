@@ -7,7 +7,19 @@ class Game
   end
 
   def place(ship)
-    @ships << (ship)
+    occupied = false
+    ship.location.each do |single_point|
+      @ships.each do |placed_ship|
+        placed_ship.location.each do |matching_point|
+          if single_point == matching_point
+            occupied = true
+          end
+        end
+      end
+    end
+    if !occupied
+      @ships << ship
+    end
   end
 
 end
